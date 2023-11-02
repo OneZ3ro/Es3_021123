@@ -1,17 +1,24 @@
 package angelomoreno.Es3_021123;
 
+import angelomoreno.Es3_021123.entities.Drink;
 import angelomoreno.Es3_021123.entities.Pizza;
+import angelomoreno.Es3_021123.entities.Product;
+import angelomoreno.Es3_021123.entities.Topping;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 @Slf4j
 public class MyTests {
     static Pizza pizza;
+    static Drink drink;
+    static Topping topping;
     private static AnnotationConfigApplicationContext ctx;
 
     @BeforeAll
@@ -19,6 +26,9 @@ public class MyTests {
         log.info("Before all");
         ctx = new AnnotationConfigApplicationContext(Es3021123Application.class);
         pizza = (Pizza) ctx.getBean("margherita");
+        drink = (Drink) ctx.getBean("limonata");
+        topping = (Topping) ctx.getBean("formaggio");
+        productList = (List<Product>) ctx.getBean("getElementiOrdine");
     }
 
     @AfterAll
@@ -34,4 +44,22 @@ public class MyTests {
         System.out.println("Pizza arrivata" + margherita);
         assertSame(pizza, margherita);
     }
+
+    @Test
+    void testLimonata() {
+        Drink limonata = (Drink) ctx.getBean("limonata");
+        System.out.println("Drink aspettato" + drink);
+        System.out.println("Drink arrivato" + limonata);
+        assertSame(drink, limonata);
+    }
+
+    @Test
+    void testFormaggio() {
+        Topping formaggio = (Topping) ctx.getBean("formaggio");
+        System.out.println("Topping aspettato" + topping);
+        System.out.println("Topping arrivato" + formaggio);
+        assertSame(topping, formaggio);
+    }
+
+    
 }
