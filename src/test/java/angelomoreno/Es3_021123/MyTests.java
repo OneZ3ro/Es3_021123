@@ -1,13 +1,12 @@
 package angelomoreno.Es3_021123;
 
-import angelomoreno.Es3_021123.entities.Drink;
-import angelomoreno.Es3_021123.entities.Pizza;
-import angelomoreno.Es3_021123.entities.Product;
-import angelomoreno.Es3_021123.entities.Topping;
+import angelomoreno.Es3_021123.entities.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
@@ -21,6 +20,7 @@ public class MyTests {
     static Drink drink;
     static Topping topping;
     static List<Product> productList;
+    static Menu menu;
     private static AnnotationConfigApplicationContext ctx;
 
     @BeforeAll
@@ -31,6 +31,7 @@ public class MyTests {
         drink = (Drink) ctx.getBean("limonata");
         topping = (Topping) ctx.getBean("formaggio");
         productList = (List<Product>) ctx.getBean("getElementiOrdine");
+        menu = (Menu) ctx.getBean("menu");
     }
 
     @AfterAll
@@ -74,5 +75,12 @@ public class MyTests {
         System.out.println("Lunghezza aspettata" + productList.size());
         System.out.println("Lunghezza arrivata" + app.size());
         assertEquals(productList.size(), app.size());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"margherita", "odiolitalia", "salume"})
+    void testConParametri(String str) {
+        List<Pizza> pizze = menu.getPizze().stream().filter(pizza1 -> pizza1.getNome().equals(str)).toList();
+        assertEquals(str, pizze.get(0).getNome());
     }
 }
