@@ -13,8 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 public class MyTests {
@@ -38,6 +37,11 @@ public class MyTests {
     static void afterAll() {
         log.info("After all");
         ctx.close();
+    }
+
+    @Test
+    void testNotNull() {
+        assertNotNull(pizza);
     }
 
     @Test
