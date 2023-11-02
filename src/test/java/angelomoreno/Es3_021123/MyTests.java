@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
+import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 @Slf4j
@@ -19,6 +21,7 @@ public class MyTests {
     static Pizza pizza;
     static Drink drink;
     static Topping topping;
+    static List<Product> productList;
     private static AnnotationConfigApplicationContext ctx;
 
     @BeforeAll
@@ -61,5 +64,11 @@ public class MyTests {
         assertSame(topping, formaggio);
     }
 
-    
+    @Test
+    void testListaOrdine() {
+        List<Integer> app = Stream.of(1, 2, 3, 4, 5, 6, 7).toList();
+        System.out.println("Lunghezza aspettata" + productList.size());
+        System.out.println("Lunghezza arrivata" + app.size());
+        assertEquals(productList.size(), app.size());
+    }
 }
